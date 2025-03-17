@@ -1,25 +1,22 @@
-import java.util.ArrayList;
-
 class Solution {
-    ArrayList<int[]> rootArray = new ArrayList<>();
+    private int index = 0;
     
     public int[][] solution(int n) {
-        // 1번 막대에서 3번 막대로, 2번 막대를 거쳐서
-        hanoiFunction(n, 1, 3, 2);
-        return rootArray.toArray(new int[rootArray.size()][]);
+        int[][] answer = new int[(int) Math.pow(2,n) -1][2];
+        
+        move(n, 1, 3, 2, answer);
+        
+        return answer;
     }
     
-    public void hanoiFunction(int n, int start, int end, int via) {
+    public void move(int n, int start, int end, int via, int[][] answer) {
         if (n == 1) {
-            rootArray.add(moveFunction(1, start, end));
+            answer[index++] = new int[]{start, end};
+            return ;
         } else {
-            hanoiFunction(n - 1, start, via, end);
-            rootArray.add(moveFunction(n, start, end));
-            hanoiFunction(n - 1, via, end, start);
+            move(n-1, start, via, end, answer);
+            answer[index++] = new int[]{start,end};
+            move(n-1,via, end, start, answer);
         }
-    }
-    
-    public int[] moveFunction(int n, int start, int end) {
-        return new int[]{start, end};
     }
 }
