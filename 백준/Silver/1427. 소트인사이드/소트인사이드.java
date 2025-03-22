@@ -1,23 +1,22 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String input = br.readLine();
+        char[] s = br.readLine().toCharArray();
         
-        // 입력 문자열을 Character 배열로 변환합니다.
-        Character[] a = new Character[input.length()];
-        for (int i = 0; i < input.length(); i++) {
-            a[i] = input.charAt(i);
+        // ASCII 문자 범위로 가정하여 크기를 128로 설정 (필요에 따라 256 사용 가능)
+        int[] count = new int[128];
+        for (char c : s) {
+            count[c]++;
         }
         
-        // Collections.reverseOrder()를 사용하여 내림차순 정렬합니다.
-        Arrays.sort(a, Collections.reverseOrder());
-        
         StringBuilder answer = new StringBuilder();
-        for (char c : a) {
-            answer.append(c);
+        // 내림차순 정렬: 큰 문자부터 출력
+        for (int i = 127; i >= 0; i--) {
+            while (count[i]-- > 0) {
+                answer.append((char) i);
+            }
         }
         
         System.out.print(answer);
