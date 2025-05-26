@@ -1,17 +1,17 @@
+import java.lang.Integer;
+
 class Solution {
     public int solution(int n) {
         int answer = 0;
         
-        String convertBinary = Integer.toBinaryString(n);
-        String a = convertBinary.replace("0", "");    
+        int countN = Integer.bitCount(n);
         
         boolean flag = true;
         while (flag) {
             int target = ++n;
-            String convertTargetToBinary = Integer.toBinaryString(target);
-            String b = convertTargetToBinary.replace("0", "");
+            int countTarget = Integer.bitCount(target);
             
-            if (a.length() == b.length()) {
+            if (countN == countTarget) {
                 answer = target;
                 flag = false;
                 break;
