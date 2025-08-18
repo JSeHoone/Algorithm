@@ -2,27 +2,29 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    private static int N;
-    private static int M;
-    private static int count;
-    private static int[][] board;
-    private static int[] dx = {-1,1,0,0};
-    private static int[] dy = {0,0,-1,1};
+    private static int[][] map;
+    private static int x,y;
+    private static int[] dy = {-1,1,0,0};
+    private static int[] dx = {0,0,-1,1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] input = br.readLine().split(" ");
-        N = Integer.parseInt(input[0]);
-        M = Integer.parseInt(input[1]);
 
-        board = new int[N][M];
-        for (int i = 0; i < N; i++) {
-            int[] row = Arrays.stream(br.readLine().split("")).mapToInt(Integer::parseInt).toArray();
-            board[i] = row;
+        int[] position = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        y = position[0];
+        x = position[1];
+
+        map = new int[y][x];
+        for (int i = 0; i < y; i++) {
+            String line = br.readLine();
+            for (int j = 0; j < x; j++) {
+                String token = String.valueOf(line.charAt(j));
+                map[i][j] = Integer.parseInt(token);
+            }
         }
 
         bfs();
-        System.out.println(board[N-1][M-1]);
+        System.out.println(map[y-1][x-1]);
 
     }
 
@@ -31,22 +33,21 @@ public class Main {
         q.add(new int[]{0,0});
 
         while (!q.isEmpty()) {
-            int[] current = q.poll();
+            int[] position = q.poll();
 
-            if (board[current[0]][current[1]] != 0) {
+            for (int i = 0; i < 4; i++) {
+                int ny = position[0] + dy[i];
+                int nx = position[1] + dx[i];
 
-                for (int i =0; i < 4; i++) {
-                    int nx = current[0] + dx[i];
-                    int ny = current[1] + dy[i];
-
-                    if (nx < 0 || nx >= N || ny < 0 || ny >= M) {
-                        continue;
-                    }
-                    if (board[nx][ny] == 1) {
-                        board[nx][ny] = board[current[0]][current[1]] + 1;
-                        q.add(new int[]{nx,ny});
-                    }
+                if (ny < 0 || ny > map.length - 1 || nx < 0 || nx > map[0].length - 1) {
+                    continue;
                 }
+
+                if (map[ny][nx] == 1) {
+                    q.add(new int[]{ny,nx});
+                    map[ny][nx] = map[position[0]][position[1]] + 1;
+                }
+
             }
         }
     }
