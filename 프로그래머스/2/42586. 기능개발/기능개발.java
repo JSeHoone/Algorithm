@@ -1,30 +1,35 @@
-import java.util.*;
+import java.lang.Math;
+import java.util.List;
+import java.util.ArrayList;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        List<Integer> uptoDays = new ArrayList<>();
+        List<Integer> answer = new ArrayList<>();
         
+        int[] remainDays = new int[progresses.length];
         for (int i = 0; i < progresses.length; i++) {
-            double remaining = 100 - progresses[i];
-            int day = (int) Math.ceil(remaining / speeds[i]);
-            uptoDays.add(day);
+            int progress = progresses[i];
+            int speed = speeds[i];
+            
+            int remainDay = (int) Math.ceil((double)(100 - progress) / speed);
+            remainDays[i] = remainDay;
         }
         
-        List<Integer> response = new ArrayList<>();
-        
-        int currentDay = uptoDays.get(0);
-        response.add(1);
-        int count = 1;
-        
-        for (int i = 1; i < uptoDays.size(); i++) {
-            if (uptoDays.get(i) <= currentDay) {
-                response.set(response.size() - 1, response.get(response.size() - 1) + 1);
+        answer.add(1);
+        int index = 0;
+        int preProgress = remainDays[0];
+        for (int i = 1; i < remainDays.length; i++) {
+            if (preProgress >= remainDays[i]) {
+                answer.set(index, answer.get(index) + 1);
             } else {
-                response.add(1);
-                currentDay = uptoDays.get(i);
+                answer.add(1);
+                index++;
+                preProgress = remainDays[i];
             }
         }
         
-        return response.stream().mapToInt(Integer::intValue).toArray();
+        
+        
+        return answer.stream().mapToInt(Integer::intValue).toArray();
     }
 }
