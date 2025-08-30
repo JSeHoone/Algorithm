@@ -1,36 +1,38 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Random;
-
 class RandomizedSet {
-    List<Integer> value = new ArrayList<>();
-    Random rand = new Random();
+    private final ArrayList<Integer> arr = new ArrayList<>();
+    private final HashMap<Integer, Integer> idx = new HashMap<>();
+    private final Random rand = new Random();
 
     public RandomizedSet() {
 
     }
     
     public boolean insert(int val) {
-        if (this.value.contains(val)) {
-            return false;
-        } else {
-            this.value.add(val);
-            return true;
-        }
+        if (idx.containsKey(val)) return false;
+        idx.put(val, arr.size());
+        arr.add(val);
+        return true;
     }
-    
+
     public boolean remove(int val) {
-        if (this.value.contains(val)) {
-            this.value.remove(Integer.valueOf(val)); 
-            return true;
-        } else {
-            return false;
-        }
+        Integer i = idx.get(val);
+        if (i == null) return false;
+
+        int lastIdx = arr.size() - 1;
+        int lastVal = arr.get(lastIdx);
+
+        
+        arr.set(i, lastVal);
+        idx.put(lastVal, i);
+
+        arr.remove(lastIdx);
+        idx.remove(val);
+        return true;
     }
-    
+
     public int getRandom() {
-        int randIndex = this.rand.nextInt(this.value.size());
-        return this.value.get(randIndex);
+        int i = rand.nextInt(arr.size());
+        return arr.get(i);
     }
 }
 
