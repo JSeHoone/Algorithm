@@ -10,6 +10,7 @@ auto push repository for LeetCode create with LeetHub
 |  |
 | ------- |
 | [0026-remove-duplicates-from-sorted-array](https://github.com/JSeHoone/Algorithm/tree/master/0026-remove-duplicates-from-sorted-array) |
+| [0200-number-of-islands](https://github.com/JSeHoone/Algorithm/tree/master/0200-number-of-islands) |
 | [0380-insert-delete-getrandom-o1](https://github.com/JSeHoone/Algorithm/tree/master/0380-insert-delete-getrandom-o1) |
 ## Two Pointers
 |  |
@@ -31,4 +32,20 @@ auto push repository for LeetCode create with LeetHub
 |  |
 | ------- |
 | [0380-insert-delete-getrandom-o1](https://github.com/JSeHoone/Algorithm/tree/master/0380-insert-delete-getrandom-o1) |
+## Depth-First Search
+|  |
+| ------- |
+| [0200-number-of-islands](https://github.com/JSeHoone/Algorithm/tree/master/0200-number-of-islands) |
+## Breadth-First Search
+|  |
+| ------- |
+| [0200-number-of-islands](https://github.com/JSeHoone/Algorithm/tree/master/0200-number-of-islands) |
+## Union Find
+|  |
+| ------- |
+| [0200-number-of-islands](https://github.com/JSeHoone/Algorithm/tree/master/0200-number-of-islands) |
+## Matrix
+|  |
+| ------- |
+| [0200-number-of-islands](https://github.com/JSeHoone/Algorithm/tree/master/0200-number-of-islands) |
 <!---LeetCode Topics End-->
