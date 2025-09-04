@@ -34,26 +34,23 @@ public class Main {
 
 
         int rank = 1;
-        CountryMedal country1 = list.get(0);
-        for (int i = 1; i < N; i++) {
-            CountryMedal nextCountry = list.get(i);
 
-            if (country1.gold == nextCountry.gold && country1.silver == nextCountry.silver && country1.bronze == nextCountry.bronze) {
-                if (nextCountry.country == K) {
-                    System.out.println(rank);
-                    break;
-                }
-            } else {
-                country1 = nextCountry;
-                rank++;
-
+        for (int i = 0; i < N; i++) {
+            if (i > 0) {
+                CountryMedal prev = list.get(i - 1);
+                CountryMedal cur  = list.get(i);
+                boolean tie = (prev.gold == cur.gold &&
+                        prev.silver == cur.silver &&
+                        prev.bronze == cur.bronze);
+                if (!tie) rank = i + 1; 
             }
 
-            if (nextCountry.country == K) {
-                System.out.println(i+1);
-                break;
+            if (list.get(i).country == K) {
+                System.out.println(rank);
+                return;
             }
         }
+
 
 
     }
