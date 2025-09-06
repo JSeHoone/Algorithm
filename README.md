@@ -9,6 +9,7 @@ auto push repository for LeetCode create with LeetHub
 ## Array
 |  |
 | ------- |
+| [0001-two-sum](https://github.com/JSeHoone/Algorithm/tree/master/0001-two-sum) |
 | [0026-remove-duplicates-from-sorted-array](https://github.com/JSeHoone/Algorithm/tree/master/0026-remove-duplicates-from-sorted-array) |
 | [0200-number-of-islands](https://github.com/JSeHoone/Algorithm/tree/master/0200-number-of-islands) |
 | [0380-insert-delete-getrandom-o1](https://github.com/JSeHoone/Algorithm/tree/master/0380-insert-delete-getrandom-o1) |
@@ -19,6 +20,7 @@ auto push repository for LeetCode create with LeetHub
 ## Hash Table
 |  |
 | ------- |
+| [0001-two-sum](https://github.com/JSeHoone/Algorithm/tree/master/0001-two-sum) |
 | [0380-insert-delete-getrandom-o1](https://github.com/JSeHoone/Algorithm/tree/master/0380-insert-delete-getrandom-o1) |
 ## Math
 |  |
