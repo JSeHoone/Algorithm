@@ -1,24 +1,23 @@
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int[] input = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int N = input[0], M = input[1], loop = input[2];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int R = Integer.parseInt(st.nextToken());
 
-        // create array
         int[][] array = new int[N][M];
-        for (int i = 0; i <N; i++) {
-            int[] row = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-            array[i] = row;
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < M; j++) {
+                array[i][j] = Integer.parseInt(st.nextToken());
+            }
         }
 
-        for (int i = 0; i < loop; i++) {
-            // 회전 로직
-            int[][] rotatedArray = arrayRotate(array);
-        }
+        arrayRotate(array, R);
 
         StringBuilder sb = new StringBuilder();
         for (int[] row : array) {
@@ -30,51 +29,39 @@ public class Main {
         System.out.print(sb);
     }
 
-    private static int[][] arrayRotate(int[][] array) {
+    private static void arrayRotate(int[][] array, int R) {
         int n = array.length;
         int m = array[0].length;
         int layers = Math.min(n, m) / 2;
 
         for (int layer = 0; layer < layers; layer++) {
-            List<Integer> temp = new ArrayList<>();
+            // 현재 layer 길이
+            int height = n - 2 * layer;
+            int width = m - 2 * layer;
+            int len = 2 * (height + width) - 4;
 
-            // 위쪽
-            for (int j = layer; j < m - layer; j++) {
-                temp.add(array[layer][j]);
-            }
-            // 오른쪽
-            for (int i = layer + 1; i < n - layer - 1; i++) {
-                temp.add(array[i][m - layer - 1]);
-            }
-            // 아래쪽
-            for (int j = m - layer - 1; j >= layer; j--) {
-                temp.add(array[n - layer - 1][j]);
-            }
-            // 왼쪽
-            for (int i = n - layer - 2; i > layer; i--) {
-                temp.add(array[i][layer]);
-            }
-
-            Collections.rotate(temp, -1);
-
+            int[] temp = new int[len];
             int idx = 0;
-            // 위쪽
-            for (int j = layer; j < m - layer; j++) {
-                array[layer][j] = temp.get(idx++);
+
+            // 추출
+            for (int j = layer; j < m - layer; j++) temp[idx++] = array[layer][j];
+            for (int i = layer + 1; i < n - layer - 1; i++) temp[idx++] = array[i][m - layer - 1];
+            for (int j = m - layer - 1; j >= layer; j--) temp[idx++] = array[n - layer - 1][j];
+            for (int i = n - layer - 2; i > layer; i--) temp[idx++] = array[i][layer];
+
+            // 회전
+            int rot = R % len;
+            int[] rotated = new int[len];
+            for (int i = 0; i < len; i++) {
+                rotated[i] = temp[(i + rot) % len];
             }
-            // 오른쪽
-            for (int i = layer + 1; i < n - layer - 1; i++) {
-                array[i][m - layer - 1] = temp.get(idx++);
-            }
-            // 아래쪽
-            for (int j = m - layer - 1; j >= layer; j--) {
-                array[n - layer - 1][j] = temp.get(idx++);
-            }
-            // 왼쪽
-            for (int i = n - layer - 2; i > layer; i--) {
-                array[i][layer] = temp.get(idx++);
-            }
+
+            // 다시 넣기
+            idx = 0;
+            for (int j = layer; j < m - layer; j++) array[layer][j] = rotated[idx++];
+            for (int i = layer + 1; i < n - layer - 1; i++) array[i][m - layer - 1] = rotated[idx++];
+            for (int j = m - layer - 1; j >= layer; j--) array[n - layer - 1][j] = rotated[idx++];
+            for (int i = n - layer - 2; i > layer; i--) array[i][layer] = rotated[idx++];
         }
-        return array;
     }
 }
