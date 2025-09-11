@@ -20,10 +20,14 @@ public class Main {
             int[][] rotatedArray = arrayRotate(array);
         }
 
+        StringBuilder sb = new StringBuilder();
         for (int[] row : array) {
-            String a = Arrays.stream(row).mapToObj(String::valueOf).collect(Collectors.joining(" "));
-            System.out.println(a);
+            for (int j = 0; j < M; j++) {
+                sb.append(row[j]).append(" ");
+            }
+            sb.append("\n");
         }
+        System.out.print(sb);
     }
 
     private static int[][] arrayRotate(int[][] array) {
