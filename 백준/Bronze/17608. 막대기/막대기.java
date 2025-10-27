@@ -6,17 +6,17 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
 
-        Stack<Integer> stack = new Stack<>();
+        List<Integer> stack = new ArrayList<>();
 
         for (int i = 0; i < N; i++) {
             int unit = Integer.parseInt(br.readLine());
-            stack.push(unit);
+            stack.add(unit);
         }
 
         int answer = 1;
-        int preNum = stack.pop();
-        for (int i = 0; i < N-1; i++) {
-            int unit = stack.pop();
+        int preNum = stack.get(N-1);
+        for (int i = N-2; i > -1; i--) {
+            int unit = stack.get(i);
             if (unit > preNum) {
                 answer++;
                 preNum = unit;
