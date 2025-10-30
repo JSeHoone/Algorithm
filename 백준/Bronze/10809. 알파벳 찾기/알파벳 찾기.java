@@ -22,9 +22,11 @@ public class Main {
         }
 
         // out
+        StringBuilder sb = new StringBuilder();
         for (int value : dict.values()) {
-            System.out.print(value + " ");
+            sb.append(value).append(" ");
         }
+        System.out.println(sb);
 
     }
 }
