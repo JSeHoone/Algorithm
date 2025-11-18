@@ -1,22 +1,23 @@
 import java.io.*;
 import java.util.*;
 
+
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        int loop = Integer.parseInt(br.readLine());
-        int[] nums = new int[loop];
-        
-        for (int i = 0; i < loop; i++) {
-            int num = Integer.parseInt(br.readLine());
-            nums[i] = num;
+        int N = Integer.parseInt(br.readLine());
+
+        int[] list_ = new int[N];
+        for (int i = 0; i < N; i++) {
+            list_[i] = Integer.parseInt(br.readLine());
         }
-        
-        Arrays.sort(nums);
-        
-        for (int num : nums) {
-            System.out.println(num);
+
+        Arrays.sort(list_, 0, N);
+        for (int i = 0; i < N; i++) {
+            System.out.println(list_[i]);
         }
+
+
     }
+
 }
