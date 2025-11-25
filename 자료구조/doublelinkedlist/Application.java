@@ -1,11 +1,13 @@
-public class Application2 {
+package doublelinkedlist;
+
+public class Application {
     public static void main(String[] args) {
         // Node 생성
-        Node2<Integer> node1 = new Node2<>(1);
-        Node2<Integer> node2 = new Node2<>(2);
-        Node2<Integer> node3 = new Node2<>(3);
-        Node2<Integer> node4 = new Node2<>(4);
-        Node2<Integer> node5 = new Node2<>(5);
+        Node<Integer> node1 = new Node<>(1);
+        Node<Integer> node2 = new Node<>(2);
+        Node<Integer> node3 = new Node<>(3);
+        Node<Integer> node4 = new Node<>(4);
+        Node<Integer> node5 = new Node<>(5);
 
         // double linked list 생성
         DoubleLinkedList<Integer> doubleList = new DoubleLinkedList<>();
