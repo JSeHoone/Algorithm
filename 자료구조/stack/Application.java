@@ -4,12 +4,6 @@ import java.util.Stack;
 
 public class Application {
     public static void main(String[] args) {
-        // create Node
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
-        Node<Integer> node3 = new Node<>(3);
-        Node<Integer> node4 = new Node<>(4);
-
         // create stack
         StackImpl<Integer> stack = new StackImpl<>();
 
