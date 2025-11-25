@@ -12,12 +12,13 @@ public class ArrayQueueImpl {
 
     /*public method*/
     public void push(Object value) {
+        // TODO : GPT에 물어보니 Full condition이 아니라고 함 !..
         if (front == rear && queue[rear] != null) {
             throw new RuntimeException("배열이 꽉 찼습니다.");
         }
 
         queue[rear] = value;
-        rear++;
+        rear = (rear+1) % queue.length;
     }
 
     public Object pop() {
@@ -32,11 +33,15 @@ public class ArrayQueueImpl {
     }
 
     public int size() {
-        return queue.length;
+        if (rear >= front) {
+            return rear - front;
+        } else {
+            return queue.length - (front - rear);
+        }
     }
 
     public boolean isEmpty() {
-        return queue.length == 0;
+        return front == rear && queue[front] == null;
     }
 
     //toString
@@ -44,13 +49,14 @@ public class ArrayQueueImpl {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("front").append("->");
+        sb.append("front -> ");
 
         int index = front;
-        Object pointer = queue[index];
-        while (pointer != null) {
-            sb.append(pointer).append("->");
-            index = (index+1) % queue.length;
+        while (queue[index] != null) {
+            sb.append(queue[index]).append("->");
+            index = (index + 1) % queue.length;
+
+            if (index == rear) break;
         }
         sb.append("rear");
         return sb.toString();

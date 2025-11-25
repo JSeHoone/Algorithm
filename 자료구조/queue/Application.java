@@ -1,9 +1,5 @@
 package queue;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import stack.StackImpl;
-
 public class Application {
     public static void main(String[] args) {
         // create List Queue
