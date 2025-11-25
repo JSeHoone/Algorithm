@@ -1,6 +1,6 @@
 package stack;
 
-public class StackImpl<T> {
+public class ListStackImpl<T> {
     Node<T> peek;
     int size = 0;
 
