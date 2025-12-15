@@ -1,89 +1,85 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
-    private static int N;
-    private static int M;
-    private static int V;
-    private static LinkedList<Integer>[] graph;
 
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        String[] input = br.readLine().split(" ");
-        N = Integer.parseInt(input[0]); // 노드 수
-        M = Integer.parseInt(input[1]); // 간선 수
-        V = Integer.parseInt(input[2]); // 시작 노드
+        String[] inputs = br.readLine().split(" ");
+        int nodeNum = Integer.parseInt(inputs[0]);
+        int edgeNum = Integer.parseInt(inputs[1]);
+        int startNum = Integer.parseInt(inputs[2]);
 
-        // make graph
-        graph = new LinkedList[N+1];
-        for (int i = 0; i <= N; i++) {
-            graph[i] = new LinkedList<>();
+        // graph
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+
+        // set nodes
+        for (int i = 1; i < nodeNum+1; i++) {
+            graph.put(i, new ArrayList<>());
         }
 
-        // linked edge
-        for (int i=0; i < M; i++) {
-            int[] edge = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-            graph[edge[0]].add(edge[1]);
-            graph[edge[1]].add(edge[0]);
+        // set Edge
+        for (int i = 0; i < edgeNum; i++) {
+            String[] nodes = br.readLine().split(" ");
+            int node1 = Integer.parseInt(nodes[0]);
+            int node2 = Integer.parseInt(nodes[1]);
+
+            graph.get(node1).add(node2);
+            graph.get(node2).add(node1);
         }
 
-        // bfs & dfs
+        // DFS
         StringBuilder sb = new StringBuilder();
-        dfs(sb);
-        sb.append("\n");
-        bfs(sb);
+        Set<Integer> visited = new HashSet<>();
+        dfs(startNum, graph, visited, sb);
         System.out.println(sb);
 
+        // BFS
+        System.out.println(bfs(startNum, graph));
     }
 
-    private static void dfs(StringBuilder sb) {
-        boolean[] visited = new boolean[N+1];
-        Stack<Integer> stack = new Stack<>();
-        stack.push(V);
+    public static String bfs(int start, Map<Integer, List<Integer>> graph) {
+        Set<Integer> visited = new HashSet<>();
+        Queue<Integer> q = new ArrayDeque<>();
 
-        while(!stack.isEmpty()) {
-            int current = stack.pop();
+        q.offer(start);
 
-            if (!visited[current]) {
-                visited[current] = true;
-                sb.append(current).append(" ");
+        StringBuilder sb = new StringBuilder();
+        while(!q.isEmpty()) {
+            Integer nodeValue = q.poll();
+            if (visited.contains(nodeValue)) continue;
 
-                // current의 주변 확인
-                List<Integer> neighbors = graph[current];
-                neighbors.sort(Comparator.reverseOrder()); // 작은 순서로 넣기 위함.
+            visited.add(nodeValue);
 
-                for (int neighbor : neighbors) {
-                    if (!visited[neighbor]) {
-                        stack.push(neighbor);
-                    }
+            List<Integer> edgeNodes = graph.get(nodeValue);
+            Collections.sort(edgeNodes);
+
+            for (int edgeNode : edgeNodes) {
+                if (!visited.contains(edgeNode)) {
+                    q.offer(edgeNode);
                 }
             }
+
+            sb.append(nodeValue).append(" ");
         }
 
+        return sb.toString();
     }
 
-    private static void bfs(StringBuilder sb) {
-        boolean[] visited = new boolean[N+1];
-        Queue<Integer> q = new LinkedList<>();
-        q.add(V);
+    public static void dfs(int currentNode, Map<Integer, List<Integer>> graph, Set<Integer> visited, StringBuilder sb) {
+        if (visited.contains(currentNode)) return;
 
-        while (!q.isEmpty()) {
-            int current = q.poll();
+        visited.add(currentNode);
+        sb.append(currentNode).append(" ");
 
-            if (!visited[current]) {
-                visited[current] = true;
-                sb.append(current).append(" ");
+        List<Integer> edgeNodes = graph.get(currentNode);
+        Collections.sort(edgeNodes);
 
-                List<Integer> neighbors = graph[current];
-                neighbors.sort(Comparator.naturalOrder()); // 작은 순서로 넣기 위함.
-
-                for (int neighbor : neighbors) {
-                    if (!visited[neighbor]) {
-                        q.add(neighbor);
-                    }
-                }
-            }
+        for (int nextNode : edgeNodes) {
+            dfs(nextNode, graph, visited, sb);
         }
+
+
     }
 }
