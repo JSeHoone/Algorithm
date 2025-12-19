@@ -1,23 +1,25 @@
-import java.io.*;
 import java.util.*;
-
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
         int N = Integer.parseInt(br.readLine());
-
-        int[] list_ = new int[N];
+        
+        int[] nums = new int[N];
         for (int i = 0; i < N; i++) {
-            list_[i] = Integer.parseInt(br.readLine());
+            int num = Integer.parseInt(br.readLine());
+            nums[i] = num;
         }
-
-        Arrays.sort(list_, 0, N);
+        
+        Arrays.sort(nums);
+        
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; i++) {
-            System.out.println(list_[i]);
+            sb.append(nums[i]).append("\n");
         }
-
-
+        
+        System.out.print(sb);
     }
-
 }
