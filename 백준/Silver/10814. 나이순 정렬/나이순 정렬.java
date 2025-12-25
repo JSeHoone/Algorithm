@@ -4,7 +4,6 @@
 
 import java.util.*;
 import java.io.*;
-import java.lang.*;
 
 public class Main{ 
     public static void main(String[] args) throws IOException {
@@ -12,29 +11,24 @@ public class Main{
         
         int N = Integer.parseInt(br.readLine());
         
-        List<String[]> people = new ArrayList<>();
+        String[][] people = new String[N][2];
         
         for (int i = 0; i < N; i++) {
-            String[] personInfo = br.readLine().split(" ");
-            String[] newPersonInfo = new String[]{
-                String.valueOf(i),
-                personInfo[0],
-                personInfo[1]};
-            
-            people.add(newPersonInfo);
+            String[] person = br.readLine().split(" ");
+            people[i] = person;
         }
         
         // 정렬 
-        people.sort(
-            Comparator.comparingInt((String[] p) -> Integer.parseInt(p[1])) // 나이 오름차순
-                      .thenComparingInt(p -> Integer.parseInt(p[0]))        // 가입 순서
-        );
+        // 1. 나이가 증가하는 순으로 정렬
+        Arrays.sort(people, (p1, p2) -> {
+            return Integer.parseInt(p1[0]) - Integer.parseInt(p2[0]);
+        });
 
         
         // 출력
         StringBuilder sb = new StringBuilder();
         for (String[] p : people) {
-            sb.append(p[1]).append(" ").append(p[2]).append("\n");
+            sb.append(p[0]).append(" ").append(p[1]).append("\n");
         }
 
         System.out.println(sb);
