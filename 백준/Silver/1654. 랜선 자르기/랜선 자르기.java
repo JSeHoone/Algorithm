@@ -1,44 +1,50 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] input = br.readLine().split(" ");
-        int N = Integer.parseInt(input[0]);
-        int target = Integer.parseInt(input[1]);
-        
-        long start = 1;
-        long maxValue = 0;
-        long[] intArray = new long[N];
-        
+
+        int[] data = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+
+        int N = data[0];
+        int target = data[1];
+
+        int[] lans = new int[N];
         for (int i = 0; i < N; i++) {
-            long value = Long.parseLong(br.readLine());
-            intArray[i] = value;
-            
-            if (maxValue < value) {
-                maxValue = value;
+            lans[i] = Integer.parseInt(br.readLine());
+        }
+
+        // sort 
+        Arrays.sort(lans);
+
+        // logic
+        long lo = 1;
+        long hi = lans[N-1];
+        long answer =0;
+
+        while (lo <= hi) {
+            long mid = lo + (hi - lo) / 2;
+
+            if (check(mid, lans, target)) {
+                answer = mid;
+                lo = mid + 1;
+            } else{
+                hi = mid - 1;
             }
         }
+
+        System.out.println(answer);
         
-        // binary search
-        long result = 0;
-        while (start <= maxValue) {
-            long midValue = start + (maxValue - start) / 2;
-            long count = 0;
-            
-            for (long lan : intArray) {
-                count += lan / midValue;
-            }
-            
-            if (count < target) {
-                maxValue = midValue - 1;
-            } else {
-                result = midValue; 
-                start = midValue + 1;
-            }
+    }
+
+    // check
+    public static boolean check(long mid, int[] lans, int target) {
+        long sum = 0;
+        for (int lan : lans) {
+            sum += (lan / mid);
         }
-        
-        System.out.print(result);
+
+        return sum >= target;
     }
 }
